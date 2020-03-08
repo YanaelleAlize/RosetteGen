@@ -1,4 +1,5 @@
-from src.Point import Point
+from Point import Point
+
 
 class Figure :
 

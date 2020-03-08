@@ -1,19 +1,14 @@
 import numpy as np
-from src.Point import Point
-from src.PlotOptions import PlotOptions
-from src.Figure import Figure
+from Point import Point
+from PlotOptions import PlotOptions
+from Figure import Figure
+
 
 class Circle(Figure) :
 
     def __init__(self, Optn = PlotOptions(), Center = Point(), r = 1):
-        self.super()
+        super()
         self._Center = Center
-        self._Optn = Optn
-        self._r = r
-
-    def __init__(self, Optn=PlotOptions(), x_0 = 0, y_0 = 0, r = 1):
-        self.super()
-        self._Center = Point(x_0, y_0)
         self._Optn = Optn
         self._r = r
 
@@ -24,7 +19,7 @@ class Circle(Figure) :
         return self.drawSemiCircle()
 
     def drawSemiCircle(self, startAngle = 0, drawAngle = 2 * np.pi, parcoursSensTrigonometrique = True):
-        x_0, y_0 = np.array([self._x0] * self._Optn.getN()), np.array([self._y0] * self._Optn.getN())
+        x_0, y_0 = np.array([self._Center.getX()] * self._Optn.getN()), np.array([self._Center.getY()] * self._Optn.getN())
         if parcoursSensTrigonometrique :
             theta = np.linspace(startAngle, startAngle + drawAngle, self._Optn.getN())
         else :
@@ -42,5 +37,44 @@ class Circle(Figure) :
 
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
+    from math import sqrt
+    opt = PlotOptions()
+    C1 = Circle(opt, Point(2, 2 * sqrt(3)), 1)
     print("Circle Unit tests : ")
-    print("")
+    print(C1)
+    
+    print("\tTest Draw Circle : ")
+    fig, a1 = plt.subplots(1)
+    a1.set_aspect(1)
+    xy_plot = C1.drawCircle()
+    a1.plot(xy_plot[0], xy_plot[1])
+    plt.show()
+    
+    print("\tTest Draw SemiCircle : ")
+    fig, a2 = plt.subplots(1)
+    a2.set_aspect(1)
+    xy_plot = C1.drawSemiCircle(0, np.pi / 2)
+    a2.plot(xy_plot[0], xy_plot[1])
+    plt.show()
+    
+    print("\tTest Draw SemiCircle Antitrigo : ")
+    fig, a3 = plt.subplots(1)
+    a3.set_aspect(1)
+    xy_plot = C1.drawSemiCircle(0, np.pi / 2, False)
+    a3.plot(xy_plot[0], xy_plot[1])
+    plt.show()
+    
+    print("\tTest Draw SemiCircleFromOriginVector : ")
+    fig, a4 = plt.subplots(1)
+    a4.set_aspect(1)
+    xy_plot = C1.drawSemiCircleFromOriginVector(np.pi / 3)
+    a4.plot(xy_plot[0], xy_plot[1])
+    plt.show()
+    
+    print("\tTest Draw SemiCircleFromOriginVector Antitrigo : ")
+    fig, a5 = plt.subplots(1)
+    a5.set_aspect(1)
+    xy_plot = C1.drawSemiCircleFromOriginVector(np.pi / 3, False)
+    a5.plot(xy_plot[0], xy_plot[1])
+    plt.show()
+    
