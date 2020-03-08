@@ -30,6 +30,7 @@ if __name__ == "__main__" :
     print("Point Unit tests : ")
     print("\tAngle (1, sqrt(3)) {}".format(Point(1, sqrt(3)).getOriginAngle() * 180 / np.pi))
     # Il faut penser à faire des comparaisons avec les erreurs potentielles de calculs
+    # genre abs(x - y) / min(abs(x), abs(y)) < 1e-15 --> pour x == y
     
 
 """    
