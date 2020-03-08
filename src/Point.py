@@ -1,5 +1,5 @@
 import numpy as np
-from math import acos, sqrt
+from math import cos, sin, acos, sqrt
 
 
 class Point :
@@ -14,14 +14,24 @@ class Point :
     def getY(self):
         return self._y
     
+    def getNorm(self):
+        return sqrt(self._x * self._x + self._y * self._y)
+    
+    def getOriginVector(self, mu = 1):
+        return Point(mu * self._x / self.getNorm(), mu * self._y / self.getNorm())
+    
+    def getOriginAngle(self):
+        return acos( self._x / self.getNorm())
+    
     def setX(self, x):
         self._x = x
 
     def setY(self, y):
         self._y = y
-
-    def getOriginAngle(self):
-        return acos( self._x / sqrt(self._x * self._x + self._y * self._y))
+        
+    def setPointFromOriginAngle(self, alpha, r = 1):
+        self._x = r * cos(alpha)
+        self._y = r * sin(alpha)
 
     def __repr__(self):
         return "P({}, {})".format(self._x, self._y)

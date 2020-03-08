@@ -14,6 +14,32 @@ class Circle(Figure) :
 
     def getCenter(self):
         return self._Center
+    
+    def getMinX(self):
+        return self._Center.getX() - self._r
+
+    def getMinY(self):
+        return self._Center.getY() - self._r
+    
+    def getMAxX(self):
+        return self._Center.getX() + self._r
+    
+    def getMaxY(self):
+        return self._Center.getY() + self._r
+        
+    def getClosestPointFromOrigin(self):
+        return self._Center - self._Center.getOriginVector(self._r) 
+        
+    def getFurthestPointFromOrigin(self):
+        return self._Center + self._Center.getOriginVector(self._r) 
+        
+    def getClosestPointFromOriginDisk(self):
+        if self.getMinX() * self.getMAxX() <= 0 and self.getMinY() * self.getMAxY() <= 0 :
+            return Point()
+        return self.getClosestPointFromOrigin()
+        
+    def getFurthestPointFromOriginDisk(self):
+        return self.getFurthestPointFromOrigin()
 
     def drawCircle(self):
         return self.drawSemiCircle()
